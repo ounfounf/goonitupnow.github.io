@@ -1,7 +1,7 @@
 import { redditPresets } from './reddit_presets.js'
 
 let redditSlideGroups = [];
-let baseUrl = "https://old.reddit.com/r/";
+let baseUrl = "https://www.reddit.com/r/";
 let urlSuffix;
 let redditSlideGroupIndex = 0;
 let redgifsUrlPattern = /http:\/\/[^.]+/
@@ -63,7 +63,7 @@ async function loadNextPage(slideDefinition) {
     slideDefinition.isLoading = true;
     let url = baseUrl + slideDefinition.subreddits + urlSuffix + (slideDefinition.after ? "&after=" + slideDefinition.after : "")
     try {
-        const response = await fetch(url)
+        const response = await fetch(url, { referrerPolicy: 'no-referrer' })
         const jsonResp = await response.json()
         let metadataPromises = []
         slideDefinition.after = jsonResp.data.after
